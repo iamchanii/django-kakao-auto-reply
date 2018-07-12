@@ -59,6 +59,36 @@ class TestKakaoAutoReplyAPITest(APITestCase):
         self.assertEqual(response.status_code, 204)
         self.assertIsNone(response.data)
 
+    def test_not_provided(self):
+        data = {'type': 'text', 'content': 'foo', 'user_key': 'test_user_key'}
+
+        response = self.client.get(reverse('not_provided_test-on_keyboard'),
+                                   format='json')
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(response.data)
+
+        response = self.client.post(reverse('not_provided_test-on_friend_added'),
+                                    data, format='json')
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(response.data)
+
+        response = self.client.post(reverse('not_provided_test-on_friend_added'),
+                                    data, format='json')
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(response.data)
+
+        response = self.client.delete(reverse('not_provided_test-on_friend_deleted', kwargs={'pk': 'test_user_key'}),
+                                      format='json')
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(response.data)
+
+        response = self.client.delete(reverse('not_provided_test-on_chatroom_leaved', kwargs={'pk': 'test_user_key'}),
+                                      format='json')
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(response.data)
+
+
+class TestKakaoAutoReplyResponseTest(APITestCase):
     def test_message_response_assertion_error_if_message_is_none(self):
         with self.assertRaises(AssertionError) as context:
             MessageResponse(message=None)
@@ -68,13 +98,6 @@ class TestKakaoAutoReplyAPITest(APITestCase):
         with self.assertRaises(AssertionError) as context:
             Keyboard(type='foo')
         self.assertTrue(context)
-
-    def test_message_response(self):
-        message = Message(text='foo')
-        keyboard = Keyboard(type='text')
-        data = MessageResponse(message, keyboard)
-        self.assertDictEqual(data['message'], message)
-        self.assertDictEqual(data['keyboard'], keyboard)
 
     def test_photo_assertion_error_if_none_in_args(self):
         with self.assertRaises(AssertionError) as context1:
@@ -99,3 +122,12 @@ class TestKakaoAutoReplyAPITest(APITestCase):
 
         self.assertTrue(context1)
         self.assertTrue(context2)
+
+    def test_message_response(self):
+        photo = Photo(url='foo', width=100, height=100)
+        message_button = MessageButton(url='bar', label='zoo')
+        message = Message(text='foo', photo=photo, message_button=message_button)
+        keyboard = Keyboard(type='text')
+        data = MessageResponse(message, keyboard)
+        self.assertDictEqual(data['message'], message)
+        self.assertDictEqual(data['keyboard'], keyboard)

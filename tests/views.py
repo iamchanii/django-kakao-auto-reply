@@ -4,6 +4,10 @@ from kakao_auto_reply.response import MessageResponse, Message, Keyboard
 from kakao_auto_reply.viewsets import KakaoAutoReplyViewSet
 
 
+class TestNotProvidedKakaoAutoReplyViewSet(KakaoAutoReplyViewSet):
+    pass
+
+
 class TestKakaoAutoReplyViewSet(KakaoAutoReplyViewSet):
     def on_keyboard(self, request, *args, **kwargs):
         data = Keyboard(type='buttons', buttons=['foo', 'bar'])
