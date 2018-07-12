@@ -67,7 +67,7 @@ class TestKakaoAutoReplyAPITest(APITestCase):
         self.assertEqual(response.status_code, 204)
         self.assertIsNone(response.data)
 
-        response = self.client.post(reverse('not_provided_test-on_friend_added'),
+        response = self.client.post(reverse('not_provided_test-on_message'),
                                     data, format='json')
         self.assertEqual(response.status_code, 204)
         self.assertIsNone(response.data)
