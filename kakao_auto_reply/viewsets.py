@@ -29,18 +29,18 @@ class KakaoAutoReplyViewSet(ViewSet):
         self._not_provided_print("on_keyboard function is not provided.")
         return Response(None, 204)
 
-    def on_message(self, request, user_key=None, content_type=None, content=None, *args, **kwargs):
+    def on_message(self, request, *args, **kwargs):
         self._not_provided_print("on_message function is not provided.")
         return Response(None, 204)
 
-    def on_friend_added(self, request, user_key=None, *args, **kwargs):
+    def on_friend_added(self, request, *args, **kwargs):
         self._not_provided_print("on_friend_added function is not provided.")
         return Response(None, 204)
 
-    def on_friend_deleted(self, request, user_key=None, *args, **kwargs):
+    def on_friend_deleted(self, request, *args, **kwargs):
         self._not_provided_print("on_friend_deleted function is not provided.")
         return Response(None, 204)
 
-    def on_chatroom_leaved(self, request, user_key=None, *args, **kwargs):
+    def on_chatroom_leaved(self, request, *args, **kwargs):
         self._not_provided_print("on_chatroom_leaved function is not provided.")
         return Response(None, 204)

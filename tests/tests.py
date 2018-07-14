@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 from django.urls import reverse
-from kakao_auto_reply.response import (
+from kakao_auto_reply.objects import (
     MessageResponse, Message, Keyboard, Photo, MessageButton
 )
 
